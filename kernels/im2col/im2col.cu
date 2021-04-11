@@ -122,7 +122,7 @@ void im2col_gemm_gpu(const float * data_im, const float * data_ker, cublasHandle
         for (int M = 0; M < m; ++M) {
           for (int p = 0; p < n; ++p) {
             float c_mnp = 0;
-            for (int K = 0; K < k, ++K)
+            for (int K = 0; K < k; ++K)
               c_mnp += data_col[K + M*ldA + N*strideA] * data_ker[K + p*ldB];
             data_out[M + N*strideC + p*ldC] = c_mnp;
           }
