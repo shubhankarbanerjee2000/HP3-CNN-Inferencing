@@ -103,36 +103,11 @@ void im2col_gemm_gpu(const float * data_im, const float * data_ker, cublasHandle
 	// Output would be matB' * matA' (CUDA view) = (matA * matB)' (CUDA view) = matA * matB (our view)
 	// In essence, trust me when I do col * kernel to achieve kernel * col
 
-    /*for(int p = 0; p < bs; ++p)
-    {
-        for(int M = 0; M < m; ++M)
-        {
-            for(int N = 0; N < n; ++N)
-            {
-                float c_mnp = 0; 
-                for(int K = 0; K < k; ++K)
-                {
-                    c_mnp += data_col[M + K*ldA + p*strideA] * data_ker[K + N*ldB + p*strideB]; 
-                }
-                data_out[M + N*ldC + p*strideC] = c_mnp; 
-            }
-        }
-    }*/
-    for(int N = 0; N < bs; ++N) {
-        for (int M = 0; M < m; ++M) {
-          for (int p = 0; p < n; ++p) {
-            float c_mnp = 0;
-            for (int K = 0; K < k; ++K)
-              c_mnp += data_col[K + M*ldA + N*strideA] * data_ker[K + p*ldB];
-            data_out[M + N*strideC + p*ldC] = c_mnp;
-          }
-        }
-      }
     
-	//cublasStatus_t ret =
-	//	cublasSgemmStridedBatched(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, &alpha, data_col, 
-	//					ldA, strideA, data_ker, ldB, strideB, &beta, data_out, ldC, strideC, bs);
-	//CUBLAS_CHECK(ret, "cublas Sgemm returned an error!");
+	cublasStatus_t ret =
+		cublasSgemmStridedBatched(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, &alpha, data_col, 
+						ldA, strideA, data_ker, ldB, strideB, &beta, data_out, ldC, strideC, bs);
+	CUBLAS_CHECK(ret, "cublas Sgemm returned an error!");
 }
 
 // takes a batch of images on CPU: data_im:  batch x ic x ih x iw (ic: input channels)
