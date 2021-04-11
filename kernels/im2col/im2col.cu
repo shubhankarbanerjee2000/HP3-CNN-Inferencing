@@ -1,6 +1,6 @@
 #include "im2col.hpp"
-
-__global__ void matrixMul(const float *A,const float *B, float *C, int m, int n, int k, int batch_size, const int SHMEM_SIZE) {
+#define SHMEM_SIZE 32
+__global__ void matrixMul(const float *A,const float *B, float *C, int m, int n, int k, int batch_size) {
     // Compute each thread's global row and column index
     int row = blockIdx.y * blockDim.y + threadIdx.y;
     int col = blockIdx.x * blockDim.x + threadIdx.x;
@@ -89,7 +89,7 @@ void im2col_gemm_gpu(const float * data_im, const float * data_ker,
 {
 	cudaDeviceProp devp;
 	cudaGetDeviceProperties(&devp, 0);
-	const int SHMEM_SIZE = devp.sharedMemPerBlock/(2*sizeof(float))
+	unsigned int SHMEM_SIZE = devp.sharedMemPerBlock/(2*sizeof(float));
 	printf("Total shared memory per block:%u\n", SHMEM_SIZE);
 	// Step 1: convert the image to col form
 	
@@ -151,7 +151,7 @@ void im2col_gemm_gpu(const float * data_im, const float * data_ker,
 	dim3 blocks2(BLOCKS_X, BLOCKS_Y);
   
 	// Launch kernel
-	matrixMul<<<blocks2, threads2>>>(data_col, data_ker, data_out, m, n, k, bs, SHMEM_SIZE);
+	matrixMul<<<blocks2, threads2>>>(data_col, data_ker, data_out, m, n, k, bs);
 }
 
 
