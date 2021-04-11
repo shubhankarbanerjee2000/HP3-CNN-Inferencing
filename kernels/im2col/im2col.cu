@@ -219,7 +219,7 @@ float * im2colWithCuda(const float * data_im, const float * data_ker, const int 
 	cudaEventElapsedTime(&conv_time, start, stop);
 	
 	// Check for any errors launching the kernel
-	CUDA_POST_KERNEL_CHECK;
+	//CUDA_POST_KERNEL_CHECK;
 
 	// Copy output vector from GPU to host memory.
 	float * data_ret = (float *)malloc(result_size * sizeof(float));
