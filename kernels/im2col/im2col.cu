@@ -87,10 +87,10 @@ void im2col_gemm_gpu(const float * data_im, const float * data_ker,
 					 const int ih, const int iw, const int ic, const int oc,
 					 float * data_col, float * data_out, int bs)
 {
-	cudaDeviceProp devp;
-	cudaGetDeviceProperties(&devp, 0);
-	unsigned int SHMEM_SIZE = devp.sharedMemPerBlock/(2*sizeof(float));
-	printf("Total shared memory per block:%u\n", SHMEM_SIZE);
+	//cudaDeviceProp devp;
+	//cudaGetDeviceProperties(&devp, 0);
+	//unsigned int SHMEM_SIZE = devp.sharedMemPerBlock/(2*sizeof(float));
+	//printf("Total shared memory per block:%u\n", SHMEM_SIZE);
 	// Step 1: convert the image to col form
 	
 	// dimensions of the col corr to this image
