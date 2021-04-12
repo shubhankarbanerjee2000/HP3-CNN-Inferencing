@@ -105,7 +105,7 @@ void im2col_gemm_gpu(const float * data_im, const float * data_ker,
 	dim3 blocks(GET_BLOCKS(op_size), bs, 1);
 	dim3 threads(CUDA_NUM_THREADS, 1, 1);
 	im2col_kernel<<<blocks, threads>>>(data_im, data_col, op_size, kh, kw, pad, stride, ih, iw, ic, hcol, wcol);
-	CUDA_POST_KERNEL_CHECK; // check if there was any error
+	//CUDA_POST_KERNEL_CHECK; // check if there was any error
 
 	// now, the col form shall be multiplied with the kernels laid out straight i.e. (ic * kh * kw)
 	// so, since, oc is the number of kernels, we get:
