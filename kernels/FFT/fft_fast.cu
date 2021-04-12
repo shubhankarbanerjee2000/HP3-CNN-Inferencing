@@ -217,7 +217,7 @@ cudaEventSynchronize(stop);
 milliseconds = 0;
 cudaEventElapsedTime(&milliseconds, start, stop);
 overhead_time += milliseconds;
-printf("Time taken for Input_padding : %f\n",milliseconds);
+//printf("Time taken for Input_padding : %f\n",milliseconds);
 
 // free  memory
 cudaFree(pad_ilayer);
@@ -317,7 +317,7 @@ cufftComplex *compute_kernel_fft(float *kernel, int pad, int *il_dim, int *kerne
   milliseconds = 0;
   cudaEventElapsedTime(&milliseconds, start, stop);
   overhead_time += milliseconds;
-  printf("Time taken for Flip_Filter execution : %f\n",milliseconds);
+  //printf("Time taken for Flip_Filter execution : %f\n",milliseconds);
 
 
   /* flip filter end */
@@ -365,7 +365,7 @@ cufftComplex *compute_kernel_fft(float *kernel, int pad, int *il_dim, int *kerne
   milliseconds = 0;
   cudaEventElapsedTime(&milliseconds, start, stop);
   overhead_time += milliseconds;
-     printf("Time taken for Filter_padding : %f\n",milliseconds);
+    // printf("Time taken for Filter_padding : %f\n",milliseconds);
 
   /* pad filter end */
 
@@ -395,7 +395,7 @@ cufftComplex *compute_kernel_fft(float *kernel, int pad, int *il_dim, int *kerne
   milliseconds = 0;
   cudaEventElapsedTime(&milliseconds, start, stop);
   overhead_time += milliseconds;
-  printf("Time taken for Filter_aligning : %f\n",milliseconds);
+  //printf("Time taken for Filter_aligning : %f\n",milliseconds);
 
   /* align filter end */
 
@@ -654,7 +654,7 @@ cudaEventSynchronize(stop);
 ms = 0;
 cudaEventElapsedTime(&ms, start, stop);
 overhead_time += ms;
-printf("Output_crop&stride_time: %f\n",ms);
+//printf("Output_crop&stride_time: %f\n",ms);
 
 cudaFree(crop_in); 
 cudaFree(crop_out);
