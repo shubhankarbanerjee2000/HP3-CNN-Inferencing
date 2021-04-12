@@ -2,12 +2,7 @@
 // Siddharth Gupta 18EC10057
 
                                                               // CONVOLUTION USING FFT 
-#include <stdio.h>
-#include <stdlib.h>
-#include <cuda.h>
-#include <cuda_runtime.h>
-#include <cufft.h>
-#include <assert.h>
+
 #include "fftheader.h"
 
   /* General Error Checking Code */
