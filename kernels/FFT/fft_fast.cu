@@ -337,8 +337,8 @@ cufftComplex *compute_kernel_fft(float *kernel, int pad, int *il_dim, int *kerne
   cudaMalloc((void **)&pad_filter_out, out_size * new_k_len * new_k_width * height * sizeof(float));
 
 // for padding 
-  dim3 threadsize1(8, 8, 8);
-  dim3 gridsize1(ceil(new_k_len / 8.0f), ceil(new_k_width / 8.0f), ceil(height / 8.0f));
+  dim3 threadsize2(8, 8, 8);
+  dim3 gridsize2(ceil(new_k_len / 8.0f), ceil(new_k_width / 8.0f), ceil(height / 8.0f));
  
  
 
